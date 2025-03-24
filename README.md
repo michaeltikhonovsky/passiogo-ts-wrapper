@@ -57,7 +57,3 @@ The API provides access to:
 - Vehicles
 
 This TypeScript implementation is a direct port of the Python PassioGo package.
-
-## License
-
-MIT
