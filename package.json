@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "ts-node src/uga_buses.ts",
     "bus-location": "ts-node src/get_bus_location.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "live-tracking": "ts-node src/live_tracking_demo.ts"
   },
   "keywords": [
     "passio",
