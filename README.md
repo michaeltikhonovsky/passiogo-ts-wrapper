@@ -5,7 +5,7 @@ TypeScript implementation of the PassioGo API client for accessing Passio GO tra
 ## Installation
 
 ```bash
-npm install
+bun install
 ```
 
 ## Usage
