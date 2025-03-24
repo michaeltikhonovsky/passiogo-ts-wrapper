@@ -35,8 +35,8 @@ main();
 ## Running the Example
 
 ```bash
-npm run build
-npm run start
+bun run build
+bun run start
 ```
 
 This will compile the TypeScript code and run the UGA buses example, which shows:
@@ -47,6 +47,8 @@ This will compile the TypeScript code and run the UGA buses example, which shows
 - Active vehicles
 
 ## API Documentation
+
+Refer to the official [PassioGo](https://github.com/athuler/PassioGo) repository as this is just a wrapper with one implementation.
 
 The API provides access to:
 
