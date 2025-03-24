@@ -71,5 +71,4 @@ async function main() {
         console.error("Error:", error);
     }
 }
-// Execute the main function
 main();

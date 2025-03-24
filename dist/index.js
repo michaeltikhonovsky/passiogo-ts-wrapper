@@ -13,20 +13,16 @@ const ws_1 = __importDefault(require("ws"));
 const BASE_URL = "https://passiogo.com";
 /// Helper Functions ///
 function toIntInclNone(toInt) {
-    if (toInt === null || toInt === undefined || toInt === '') {
+    if (toInt === null || toInt === undefined || toInt === "") {
         return null;
     }
     return parseInt(toInt);
 }
 async function sendApiRequest(url, body) {
     try {
-        // Send Request
         const response = await axios_1.default.post(url, body);
-        // Handle Response
         const data = response.data;
-        // Handle API Error
-        if ("error" in data &&
-            data["error"] !== "") {
+        if ("error" in data && data["error"] !== "") {
             throw new Error(`Error in Response! Here is the received response: ${JSON.stringify(data)}`);
         }
         return data;
@@ -56,60 +52,68 @@ class TransportationSystem {
     }
     checkTypes() {
         // id : number
-        if (typeof this.id !== 'number') {
+        if (typeof this.id !== "number") {
             throw new Error(`'id' parameter must be a number not ${typeof this.id}`);
         }
         // name : string or null
-        if (this.name !== null && typeof this.name !== 'string') {
+        if (this.name !== null && typeof this.name !== "string") {
             throw new Error(`'name' parameter must be a string not ${typeof this.name}`);
         }
         // username : string or null
-        if (this.username !== null && typeof this.username !== 'string') {
+        if (this.username !== null && typeof this.username !== "string") {
             throw new Error(`'username' parameter must be a string not ${typeof this.username}`);
         }
         // goAgencyName : string or null
-        if (this.goAgencyName !== null && typeof this.goAgencyName !== 'string') {
-            throw new Error(`'goAgencyName' parameter must be a string not ${typeof this.goAgencyName}`);
+        if (this.goAgencyName !== null && typeof this.goAgencyName !== "string") {
+            throw new Error(`'goAgencyName' parameter must be a string not ${typeof this
+                .goAgencyName}`);
         }
         // email : string or null
-        if (this.email !== null && typeof this.email !== 'string') {
+        if (this.email !== null && typeof this.email !== "string") {
             throw new Error(`'email' parameter must be a string not ${typeof this.email}`);
         }
         // goTestMode : boolean or null
-        if (this.goTestMode !== null && typeof this.goTestMode !== 'boolean') {
+        if (this.goTestMode !== null && typeof this.goTestMode !== "boolean") {
             throw new Error(`'goTestMode' parameter must be a boolean not ${typeof this.goTestMode}`);
         }
         // name2 : boolean or null
-        if (this.name2 !== null && typeof this.name2 !== 'boolean') {
+        if (this.name2 !== null && typeof this.name2 !== "boolean") {
             throw new Error(`'name2' parameter must be a boolean not ${typeof this.name2}`);
         }
         // homepage : string or null
-        if (this.homepage !== null && typeof this.homepage !== 'string') {
+        if (this.homepage !== null && typeof this.homepage !== "string") {
             throw new Error(`'homepage' parameter must be a string not ${typeof this.homepage}`);
         }
         // logo : boolean or null
-        if (this.logo !== null && typeof this.logo !== 'boolean') {
+        if (this.logo !== null && typeof this.logo !== "boolean") {
             throw new Error(`'logo' parameter must be a boolean not ${typeof this.logo}`);
         }
         // goRoutePlannerEnabled : boolean or null
-        if (this.goRoutePlannerEnabled !== null && typeof this.goRoutePlannerEnabled !== 'boolean') {
-            throw new Error(`'goRoutePlannerEnabled' parameter must be a boolean not ${typeof this.goRoutePlannerEnabled}`);
+        if (this.goRoutePlannerEnabled !== null &&
+            typeof this.goRoutePlannerEnabled !== "boolean") {
+            throw new Error(`'goRoutePlannerEnabled' parameter must be a boolean not ${typeof this
+                .goRoutePlannerEnabled}`);
         }
         // goColor : string or null
-        if (this.goColor !== null && typeof this.goColor !== 'string') {
+        if (this.goColor !== null && typeof this.goColor !== "string") {
             throw new Error(`'goColor' parameter must be a string not ${typeof this.goColor}`);
         }
         // goSupportEmail : string or null
-        if (this.goSupportEmail !== null && typeof this.goSupportEmail !== 'string') {
-            throw new Error(`'goSupportEmail' parameter must be a string not ${typeof this.goSupportEmail}`);
+        if (this.goSupportEmail !== null &&
+            typeof this.goSupportEmail !== "string") {
+            throw new Error(`'goSupportEmail' parameter must be a string not ${typeof this
+                .goSupportEmail}`);
         }
         // goSharedCode : number or null
-        if (this.goSharedCode !== null && typeof this.goSharedCode !== 'number') {
-            throw new Error(`'goSharedCode' parameter must be a number not ${typeof this.goSharedCode}`);
+        if (this.goSharedCode !== null && typeof this.goSharedCode !== "number") {
+            throw new Error(`'goSharedCode' parameter must be a number not ${typeof this
+                .goSharedCode}`);
         }
         // goAuthenticationType : boolean or null
-        if (this.goAuthenticationType !== null && typeof this.goAuthenticationType !== 'boolean') {
-            throw new Error(`'goAuthenticationType' parameter must be a boolean not ${typeof this.goAuthenticationType}`);
+        if (this.goAuthenticationType !== null &&
+            typeof this.goAuthenticationType !== "boolean") {
+            throw new Error(`'goAuthenticationType' parameter must be a boolean not ${typeof this
+                .goAuthenticationType}`);
         }
     }
     async getRoutes(appVersion = 1, amount = 1) {
@@ -126,11 +130,10 @@ class TransportationSystem {
         // Initialize & Send Request
         const url = `${BASE_URL}/mapGetData.php?getRoutes=${appVersion}`;
         const body = {
-            "systemSelected0": this.id.toString(),
-            "amount": amount
+            systemSelected0: this.id.toString(),
+            amount: amount,
         };
         let routes = await sendApiRequest(url, body);
-        // Handle Request Error
         if (routes === null) {
             return [];
         }
@@ -140,7 +143,27 @@ class TransportationSystem {
         }
         const allRoutes = [];
         for (const route of routes) {
-            const possibleKeys = ["id", "groupId", "groupColor", "name", "shortName", "nameOrig", "fullname", "myid", "mapApp", "archive", "goPrefixRouteName", "goShowSchedule", "outdated", "distance", "latitude", "longitude", "timezone", "serviceTime", "serviceTimeShort"];
+            const possibleKeys = [
+                "id",
+                "groupId",
+                "groupColor",
+                "name",
+                "shortName",
+                "nameOrig",
+                "fullname",
+                "myid",
+                "mapApp",
+                "archive",
+                "goPrefixRouteName",
+                "goShowSchedule",
+                "outdated",
+                "distance",
+                "latitude",
+                "longitude",
+                "timezone",
+                "serviceTime",
+                "serviceTimeShort",
+            ];
             for (const possibleKey of possibleKeys) {
                 if (!(possibleKey in route)) {
                     route[possibleKey] = null;
@@ -163,23 +186,19 @@ class TransportationSystem {
         // Initialize & Send Request
         const url = `${BASE_URL}/mapGetData.php?getStops=${appVersion}`;
         const body = {
-            "s0": this.id.toString(),
-            "sA": sA
+            s0: this.id.toString(),
+            sA: sA,
         };
         const stops = await sendApiRequest(url, body);
-        // Return Raw Response
         if (raw) {
             return stops;
         }
-        // Handle Request Error
         if (stops === null) {
             return [];
         }
-        // Handle Empty Routes
         if (stops["routes"].length === 0) {
             stops["routes"] = {};
         }
-        // Handle Empty Stops
         if (stops["stops"].length === 0) {
             stops["stops"] = {};
         }
@@ -206,8 +225,8 @@ class TransportationSystem {
                     continue;
                 }
                 routesAndPositions[routeId] = routesAndStops[routeId]
-                    .map((x, i) => x === stop["id"] ? i : -1)
-                    .filter(i => i !== -1);
+                    .map((x, i) => (x === stop["id"] ? i : -1))
+                    .filter((i) => i !== -1);
             }
             const keys = ["userId", "radius"];
             for (const key of keys) {
@@ -231,12 +250,11 @@ class TransportationSystem {
         // Initialize & Send Request
         const url = `${BASE_URL}/goServices.php?getAlertMessages=${appVersion}`;
         const body = {
-            "systemSelected0": this.id.toString(),
-            "amount": amount,
-            "routesAmount": routesAmount
+            systemSelected0: this.id.toString(),
+            amount: amount,
+            routesAmount: routesAmount,
         };
         const errorMsgs = await sendApiRequest(url, body);
-        // Handle Request Error
         if (errorMsgs === null) {
             return [];
         }
@@ -259,21 +277,36 @@ class TransportationSystem {
         // Initialize & Send Request
         const url = `${BASE_URL}/mapGetData.php?getBuses=${appVersion}`;
         const body = {
-            "s0": this.id.toString(),
-            "sA": 1
+            s0: this.id.toString(),
+            sA: 1,
         };
         const vehicles = await sendApiRequest(url, body);
-        // Handle Request Error
         if (vehicles === null) {
             return [];
         }
         const allVehicles = [];
         for (const [vehicleId, vehicle] of Object.entries(vehicles["buses"])) {
-            if (vehicleId === '-1') {
+            if (vehicleId === "-1") {
                 continue;
             }
             const vehicleData = vehicle[0];
-            for (const key of ["busId", "busName", "busType", "calculatedCourse", "routeId", "route", "color", "created", "latitude", "longitude", "speed", "paxLoad100", "outOfService", "more", "tripId"]) {
+            for (const key of [
+                "busId",
+                "busName",
+                "busType",
+                "calculatedCourse",
+                "routeId",
+                "route",
+                "color",
+                "created",
+                "latitude",
+                "longitude",
+                "speed",
+                "paxLoad100",
+                "outOfService",
+                "more",
+                "tripId",
+            ]) {
                 if (!(key in vehicleData)) {
                     vehicleData[key] = null;
                 }
@@ -296,7 +329,6 @@ async function getSystems(appVersion = 2, sortMode = 1) {
     // Initialize & Send Request
     const url = `${BASE_URL}/mapGetData.php?getSystems=${appVersion}&sortMode=${sortMode}&credentials=1`;
     const systems = await sendApiRequest(url, null);
-    // Handle Request Error
     if (systems === null) {
         return [];
     }
@@ -304,31 +336,46 @@ async function getSystems(appVersion = 2, sortMode = 1) {
     for (const system of systems["all"]) {
         // Convert Empty Strings To None Objects
         for (const parameter in system) {
-            if (system[parameter] === '') {
+            if (system[parameter] === "") {
                 system[parameter] = null;
             }
         }
         // Check all keys exist
-        for (const key of ["goAgencyName", "email", "goTestMode", "name2", "homepage", "logo", "goRoutePlannerEnabled", "goColor", "goSupportEmail", "goSharedCode", "goAuthenticationType"]) {
+        for (const key of [
+            "goAgencyName",
+            "email",
+            "goTestMode",
+            "name2",
+            "homepage",
+            "logo",
+            "goRoutePlannerEnabled",
+            "goColor",
+            "goSupportEmail",
+            "goSharedCode",
+            "goAuthenticationType",
+        ]) {
             if (!(key in system)) {
                 system[key] = null;
             }
         }
-        allSystems.push(new TransportationSystem(parseInt(system["id"]), system["fullname"], system["username"], system["goAgencyName"], system["email"], system["goTestMode"] ? Boolean(parseInt(system["goTestMode"])) : null, system["name2"] ? Boolean(parseInt(system["name2"])) : null, system["homepage"], system["logo"] ? Boolean(parseInt(system["logo"])) : null, system["goRoutePlannerEnabled"] ? Boolean(parseInt(system["goRoutePlannerEnabled"])) : null, system["goColor"], system["goSupportEmail"], toIntInclNone(system["goSharedCode"]), system["goAuthenticationType"] ? Boolean(parseInt(system["goAuthenticationType"])) : null));
+        allSystems.push(new TransportationSystem(parseInt(system["id"]), system["fullname"], system["username"], system["goAgencyName"], system["email"], system["goTestMode"] ? Boolean(parseInt(system["goTestMode"])) : null, system["name2"] ? Boolean(parseInt(system["name2"])) : null, system["homepage"], system["logo"] ? Boolean(parseInt(system["logo"])) : null, system["goRoutePlannerEnabled"]
+            ? Boolean(parseInt(system["goRoutePlannerEnabled"]))
+            : null, system["goColor"], system["goSupportEmail"], toIntInclNone(system["goSharedCode"]), system["goAuthenticationType"]
+            ? Boolean(parseInt(system["goAuthenticationType"]))
+            : null));
     }
     return allSystems;
 }
 async function getSystemFromID(id, appVersion = 2, sortMode = 1) {
     // Check Input Type
-    if (typeof id !== 'number') {
+    if (typeof id !== "number") {
         throw new Error("`id` must be of type number");
     }
-    // Check App Version Type
-    if (typeof appVersion !== 'number') {
+    if (typeof appVersion !== "number") {
         throw new Error("`appVersion` must be of type number");
     }
     // Check sort Mode Type
-    if (typeof sortMode !== 'number') {
+    if (typeof sortMode !== "number") {
         throw new Error("`sortMode` must be of type number");
     }
     const systems = await getSystems(appVersion, sortMode);
@@ -340,9 +387,9 @@ async function getSystemFromID(id, appVersion = 2, sortMode = 1) {
     return null;
 }
 function printAllSystemsMd(includeHtmlBreaks = true) {
-    getSystems().then(systems => {
+    getSystems().then((systems) => {
         for (const system of systems) {
-            console.log(`- ${system.name} (#${system.id})${includeHtmlBreaks ? '<br/>' : ''}`);
+            console.log(`- ${system.name} (#${system.id})${includeHtmlBreaks ? "<br/>" : ""}`);
         }
     });
 }
@@ -381,9 +428,11 @@ class Route {
         const stopsForRoute = [];
         const allStops = await this.system.getStops();
         for (const stop of allStops) {
-            if ((this.myid && Object.keys(stop.routesAndPositions).includes(this.myid.toString())) ||
+            if ((this.myid &&
+                Object.keys(stop.routesAndPositions).includes(this.myid.toString())) ||
                 Object.keys(stop.routesAndPositions).includes(this.id.toString()) ||
-                (this.groupId && Object.keys(stop.routesAndPositions).includes(this.groupId.toString()))) {
+                (this.groupId &&
+                    Object.keys(stop.routesAndPositions).includes(this.groupId.toString()))) {
                 stopsForRoute.push(stop);
             }
         }
@@ -468,35 +517,28 @@ exports.Vehicle = Vehicle;
 function launchWS(userId) {
     const uri = "wss://passio3.com/";
     const ws = new ws_1.default(uri);
-    ws.on('open', () => {
+    ws.on("open", () => {
         subscribeWS(ws, userId);
     });
-    ws.on('error', (error) => {
+    ws.on("error", (error) => {
         handleWsError(ws, error);
     });
-    ws.on('close', (code, reason) => {
+    ws.on("close", (code, reason) => {
         handleWsClose(ws, code, reason);
     });
     return ws;
 }
 function handleWsError(ws, error) {
-    console.error('WebSocket error:', error);
+    console.error("WebSocket error:", error);
 }
 function handleWsClose(ws, code, reason) {
     ws.close();
 }
 function subscribeWS(ws, userId) {
     const subscriptionMsg = {
-        "subscribe": "location",
-        "userId": [userId],
-        "field": [
-            "busId",
-            "latitude",
-            "longitude",
-            "course",
-            "paxLoad",
-            "more"
-        ]
+        subscribe: "location",
+        userId: [userId],
+        field: ["busId", "latitude", "longitude", "course", "paxLoad", "more"],
     };
     ws.send(JSON.stringify(subscriptionMsg));
 }

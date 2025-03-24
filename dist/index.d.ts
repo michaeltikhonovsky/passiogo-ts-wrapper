@@ -1,4 +1,4 @@
-import WebSocket from 'ws';
+import WebSocket from "ws";
 export declare class TransportationSystem {
     id: number;
     name: string | null;

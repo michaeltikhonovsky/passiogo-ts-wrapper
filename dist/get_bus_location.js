@@ -53,30 +53,30 @@ async function getBusLocation(systemId, busName) {
         const vehicles = await system.getVehicles();
         // If busName is provided, filter for that specific bus
         if (busName) {
-            const filteredVehicles = vehicles.filter(v => v.name && v.name.toLowerCase().includes(busName.toLowerCase()));
+            const filteredVehicles = vehicles.filter((v) => v.name && v.name.toLowerCase().includes(busName.toLowerCase()));
             if (filteredVehicles.length === 0) {
                 console.log(`No buses found with name: ${busName}`);
                 return [];
             }
-            return filteredVehicles.map(v => ({
+            return filteredVehicles.map((v) => ({
                 id: v.id,
                 name: v.name,
                 route: v.routeName,
                 latitude: v.latitude,
                 longitude: v.longitude,
                 speed: v.speed,
-                timestamp: new Date().toISOString()
+                timestamp: new Date().toISOString(),
             }));
         }
         // Otherwise return all vehicles with their locations
-        return vehicles.map(v => ({
+        return vehicles.map((v) => ({
             id: v.id,
             name: v.name,
             route: v.routeName,
             latitude: v.latitude,
             longitude: v.longitude,
             speed: v.speed,
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
         }));
     }
     catch (error) {
@@ -94,7 +94,7 @@ async function demo() {
     // Print the first 3 buses with their locations (if any)
     if (allBuses.length > 0) {
         console.log("\nSample bus locations:");
-        allBuses.slice(0, 3).forEach(bus => {
+        allBuses.slice(0, 3).forEach((bus) => {
             console.log(`- ${bus.name} on route ${bus.route}: (${bus.latitude}, ${bus.longitude})`);
         });
     }
