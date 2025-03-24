@@ -1,0 +1,114 @@
+import WebSocket from 'ws';
+export declare class TransportationSystem {
+    id: number;
+    name: string | null;
+    username: string | null;
+    goAgencyName: string | null;
+    email: string | null;
+    goTestMode: boolean | null;
+    name2: boolean | null;
+    homepage: string | null;
+    logo: boolean | null;
+    goRoutePlannerEnabled: boolean | null;
+    goColor: string | null;
+    goSupportEmail: string | null;
+    goSharedCode: number | null;
+    goAuthenticationType: boolean | null;
+    constructor(id: number, name?: string | null, username?: string | null, goAgencyName?: string | null, email?: string | null, goTestMode?: boolean | null, name2?: boolean | null, homepage?: string | null, logo?: boolean | null, goRoutePlannerEnabled?: boolean | null, goColor?: string | null, goSupportEmail?: string | null, goSharedCode?: number | null, goAuthenticationType?: boolean | null);
+    checkTypes(): void;
+    getRoutes(appVersion?: number, amount?: number): Promise<Route[]>;
+    getStops(appVersion?: number, sA?: number, raw?: boolean): Promise<Stop[]>;
+    getSystemAlerts(appVersion?: number, amount?: number, routesAmount?: number): Promise<SystemAlert[]>;
+    getVehicles(appVersion?: number): Promise<Vehicle[]>;
+}
+export declare function getSystems(appVersion?: number, sortMode?: number): Promise<TransportationSystem[]>;
+export declare function getSystemFromID(id: number, appVersion?: number, sortMode?: number): Promise<TransportationSystem | null>;
+export declare function printAllSystemsMd(includeHtmlBreaks?: boolean): void;
+export declare class Route {
+    id: number;
+    groupId: number | null;
+    groupColor: string | null;
+    name: string | null;
+    shortName: string | null;
+    nameOrig: string | null;
+    fullname: string | null;
+    myid: number | null;
+    mapApp: boolean | null;
+    archive: boolean | null;
+    goPrefixRouteName: boolean | null;
+    goShowSchedule: boolean | null;
+    outdated: boolean | null;
+    distance: number | null;
+    latitude: number | null;
+    longitude: number | null;
+    timezone: string | null;
+    serviceTime: string | null;
+    serviceTimeShort: string | null;
+    systemId: number | null;
+    system: TransportationSystem | null;
+    constructor(id: number, groupId?: number | null, groupColor?: string | null, name?: string | null, shortName?: string | null, nameOrig?: string | null, fullname?: string | null, myid?: number | null, mapApp?: boolean | null, archive?: boolean | null, goPrefixRouteName?: boolean | null, goShowSchedule?: boolean | null, outdated?: boolean | null, distance?: number | null, latitude?: number | null, longitude?: number | null, timezone?: string | null, serviceTime?: string | null, serviceTimeShort?: string | null, systemId?: number | null, system?: TransportationSystem | null);
+    getStops(): Promise<Stop[]>;
+}
+export declare class Stop {
+    id: string;
+    routesAndPositions: Record<string, number[]>;
+    systemId: number | null;
+    name: string | null;
+    latitude: number | null;
+    longitude: number | null;
+    radius: number | null;
+    system: TransportationSystem | null;
+    constructor(id: string, routesAndPositions?: Record<string, number[]>, systemId?: number | null, name?: string | null, latitude?: number | null, longitude?: number | null, radius?: number | null, system?: TransportationSystem | null);
+}
+export declare class SystemAlert {
+    id: number;
+    systemId: number | null;
+    system: TransportationSystem | null;
+    routeId: number | null;
+    name: string | null;
+    html: string | null;
+    archive: boolean | null;
+    important: boolean | null;
+    dateTimeCreated: string | null;
+    dateTimeFrom: string | null;
+    dateTimeTo: string | null;
+    asPush: boolean | null;
+    gtfs: boolean | null;
+    gtfsAlertCauseId: number | null;
+    gtfsAlertEffectId: number | null;
+    gtfsAlertUrl: string | null;
+    gtfsAlertHeaderText: string | null;
+    gtfsAlertDescriptionText: string | null;
+    routeGroupId: number | null;
+    createdUtc: string | null;
+    authorId: number | null;
+    author: string | null;
+    updated: string | null;
+    updateAuthorId: number | null;
+    updateAuthor: string | null;
+    createdF: string | null;
+    fromF: string | null;
+    fromOk: boolean | null;
+    toOk: boolean | null;
+    constructor(id: number, systemId?: number | null, system?: TransportationSystem | null, routeId?: number | null, name?: string | null, html?: string | null, archive?: boolean | null, important?: boolean | null, dateTimeCreated?: string | null, dateTimeFrom?: string | null, dateTimeTo?: string | null, asPush?: boolean | null, gtfs?: boolean | null, gtfsAlertCauseId?: number | null, gtfsAlertEffectId?: number | null, gtfsAlertUrl?: string | null, gtfsAlertHeaderText?: string | null, gtfsAlertDescriptionText?: string | null, routeGroupId?: number | null, createdUtc?: string | null, authorId?: number | null, author?: string | null, updated?: string | null, updateAuthorId?: number | null, updateAuthor?: string | null, createdF?: string | null, fromF?: string | null, fromOk?: boolean | null, toOk?: boolean | null);
+}
+export declare class Vehicle {
+    id: string | null;
+    name: string | null;
+    type: string | null;
+    system: TransportationSystem | null;
+    calculatedCourse: number | null;
+    routeId: string | null;
+    routeName: string | null;
+    color: string | null;
+    created: string | null;
+    latitude: number | null;
+    longitude: number | null;
+    speed: number | null;
+    paxLoad: number | null;
+    outOfService: boolean | null;
+    more: string | null;
+    tripId: string | null;
+    constructor(id?: string | null, name?: string | null, type?: string | null, system?: TransportationSystem | null, calculatedCourse?: number | null, routeId?: string | null, routeName?: string | null, color?: string | null, created?: string | null, latitude?: number | null, longitude?: number | null, speed?: number | null, paxLoad?: number | null, outOfService?: boolean | null, more?: string | null, tripId?: string | null);
+}
+export declare function launchWS(userId: number): WebSocket;
