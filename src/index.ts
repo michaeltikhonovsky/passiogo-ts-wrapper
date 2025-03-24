@@ -1,12 +1,12 @@
-import axios from 'axios';
-import WebSocket from 'ws';
+import axios from "axios";
+import WebSocket from "ws";
 
 const BASE_URL = "https://passiogo.com";
 
 /// Helper Functions ///
 
 function toIntInclNone(toInt: any): number | null {
-  if (toInt === null || toInt === undefined || toInt === '') {
+  if (toInt === null || toInt === undefined || toInt === "") {
     return null;
   }
   return parseInt(toInt);
@@ -14,20 +14,18 @@ function toIntInclNone(toInt: any): number | null {
 
 async function sendApiRequest(url: string, body: any): Promise<any> {
   try {
-    // Send Request
     const response = await axios.post(url, body);
-    
-    // Handle Response
+
     const data = response.data;
-    
-    // Handle API Error
-    if (
-      "error" in data && 
-      data["error"] !== ""
-    ) {
-      throw new Error(`Error in Response! Here is the received response: ${JSON.stringify(data)}`);
+
+    if ("error" in data && data["error"] !== "") {
+      throw new Error(
+        `Error in Response! Here is the received response: ${JSON.stringify(
+          data
+        )}`
+      );
     }
-    
+
     return data;
   } catch (e: any) {
     throw new Error(`Error with API request: ${e.message}`);
@@ -51,7 +49,7 @@ export class TransportationSystem {
   goSupportEmail: string | null;
   goSharedCode: number | null;
   goAuthenticationType: boolean | null;
-  
+
   constructor(
     id: number,
     name: string | null = null,
@@ -82,82 +80,122 @@ export class TransportationSystem {
     this.goSupportEmail = goSupportEmail;
     this.goSharedCode = goSharedCode;
     this.goAuthenticationType = goAuthenticationType;
-    
+
     this.checkTypes();
   }
-  
+
   checkTypes(): void {
     // id : number
-    if (typeof this.id !== 'number') {
+    if (typeof this.id !== "number") {
       throw new Error(`'id' parameter must be a number not ${typeof this.id}`);
     }
-    
+
     // name : string or null
-    if (this.name !== null && typeof this.name !== 'string') {
-      throw new Error(`'name' parameter must be a string not ${typeof this.name}`);
+    if (this.name !== null && typeof this.name !== "string") {
+      throw new Error(
+        `'name' parameter must be a string not ${typeof this.name}`
+      );
     }
-    
+
     // username : string or null
-    if (this.username !== null && typeof this.username !== 'string') {
-      throw new Error(`'username' parameter must be a string not ${typeof this.username}`);
+    if (this.username !== null && typeof this.username !== "string") {
+      throw new Error(
+        `'username' parameter must be a string not ${typeof this.username}`
+      );
     }
-    
+
     // goAgencyName : string or null
-    if (this.goAgencyName !== null && typeof this.goAgencyName !== 'string') {
-      throw new Error(`'goAgencyName' parameter must be a string not ${typeof this.goAgencyName}`);
+    if (this.goAgencyName !== null && typeof this.goAgencyName !== "string") {
+      throw new Error(
+        `'goAgencyName' parameter must be a string not ${typeof this
+          .goAgencyName}`
+      );
     }
-    
+
     // email : string or null
-    if (this.email !== null && typeof this.email !== 'string') {
-      throw new Error(`'email' parameter must be a string not ${typeof this.email}`);
+    if (this.email !== null && typeof this.email !== "string") {
+      throw new Error(
+        `'email' parameter must be a string not ${typeof this.email}`
+      );
     }
-    
+
     // goTestMode : boolean or null
-    if (this.goTestMode !== null && typeof this.goTestMode !== 'boolean') {
-      throw new Error(`'goTestMode' parameter must be a boolean not ${typeof this.goTestMode}`);
+    if (this.goTestMode !== null && typeof this.goTestMode !== "boolean") {
+      throw new Error(
+        `'goTestMode' parameter must be a boolean not ${typeof this.goTestMode}`
+      );
     }
-    
+
     // name2 : boolean or null
-    if (this.name2 !== null && typeof this.name2 !== 'boolean') {
-      throw new Error(`'name2' parameter must be a boolean not ${typeof this.name2}`);
+    if (this.name2 !== null && typeof this.name2 !== "boolean") {
+      throw new Error(
+        `'name2' parameter must be a boolean not ${typeof this.name2}`
+      );
     }
-    
+
     // homepage : string or null
-    if (this.homepage !== null && typeof this.homepage !== 'string') {
-      throw new Error(`'homepage' parameter must be a string not ${typeof this.homepage}`);
+    if (this.homepage !== null && typeof this.homepage !== "string") {
+      throw new Error(
+        `'homepage' parameter must be a string not ${typeof this.homepage}`
+      );
     }
-    
+
     // logo : boolean or null
-    if (this.logo !== null && typeof this.logo !== 'boolean') {
-      throw new Error(`'logo' parameter must be a boolean not ${typeof this.logo}`);
+    if (this.logo !== null && typeof this.logo !== "boolean") {
+      throw new Error(
+        `'logo' parameter must be a boolean not ${typeof this.logo}`
+      );
     }
-    
+
     // goRoutePlannerEnabled : boolean or null
-    if (this.goRoutePlannerEnabled !== null && typeof this.goRoutePlannerEnabled !== 'boolean') {
-      throw new Error(`'goRoutePlannerEnabled' parameter must be a boolean not ${typeof this.goRoutePlannerEnabled}`);
+    if (
+      this.goRoutePlannerEnabled !== null &&
+      typeof this.goRoutePlannerEnabled !== "boolean"
+    ) {
+      throw new Error(
+        `'goRoutePlannerEnabled' parameter must be a boolean not ${typeof this
+          .goRoutePlannerEnabled}`
+      );
     }
-    
+
     // goColor : string or null
-    if (this.goColor !== null && typeof this.goColor !== 'string') {
-      throw new Error(`'goColor' parameter must be a string not ${typeof this.goColor}`);
+    if (this.goColor !== null && typeof this.goColor !== "string") {
+      throw new Error(
+        `'goColor' parameter must be a string not ${typeof this.goColor}`
+      );
     }
-    
+
     // goSupportEmail : string or null
-    if (this.goSupportEmail !== null && typeof this.goSupportEmail !== 'string') {
-      throw new Error(`'goSupportEmail' parameter must be a string not ${typeof this.goSupportEmail}`);
+    if (
+      this.goSupportEmail !== null &&
+      typeof this.goSupportEmail !== "string"
+    ) {
+      throw new Error(
+        `'goSupportEmail' parameter must be a string not ${typeof this
+          .goSupportEmail}`
+      );
     }
-    
+
     // goSharedCode : number or null
-    if (this.goSharedCode !== null && typeof this.goSharedCode !== 'number') {
-      throw new Error(`'goSharedCode' parameter must be a number not ${typeof this.goSharedCode}`);
+    if (this.goSharedCode !== null && typeof this.goSharedCode !== "number") {
+      throw new Error(
+        `'goSharedCode' parameter must be a number not ${typeof this
+          .goSharedCode}`
+      );
     }
-    
+
     // goAuthenticationType : boolean or null
-    if (this.goAuthenticationType !== null && typeof this.goAuthenticationType !== 'boolean') {
-      throw new Error(`'goAuthenticationType' parameter must be a boolean not ${typeof this.goAuthenticationType}`);
+    if (
+      this.goAuthenticationType !== null &&
+      typeof this.goAuthenticationType !== "boolean"
+    ) {
+      throw new Error(
+        `'goAuthenticationType' parameter must be a boolean not ${typeof this
+          .goAuthenticationType}`
+      );
     }
   }
-  
+
   async getRoutes(
     appVersion: number = 1,
     amount: number = 1
@@ -172,63 +210,84 @@ export class TransportationSystem {
       0: Not Valid, Gives Error
       >=2: Returns all routes for given system in addition to unrelated routes. Exact methodology unsure.
     */
-    
+
     // Initialize & Send Request
     const url = `${BASE_URL}/mapGetData.php?getRoutes=${appVersion}`;
     const body = {
-      "systemSelected0": this.id.toString(),
-      "amount": amount
+      systemSelected0: this.id.toString(),
+      amount: amount,
     };
     let routes = await sendApiRequest(url, body);
-    
-    // Handle Request Error
+
     if (routes === null) {
       return [];
     }
-    
+
     // Handle Differing Response Format
     if ("all" in routes) {
       routes = routes["all"];
     }
-    
+
     const allRoutes: Route[] = [];
     for (const route of routes) {
-      const possibleKeys = ["id", "groupId", "groupColor", "name", "shortName", "nameOrig", "fullname", "myid", "mapApp", "archive", "goPrefixRouteName", "goShowSchedule", "outdated", "distance", "latitude", "longitude", "timezone", "serviceTime", "serviceTimeShort"];
-      
+      const possibleKeys = [
+        "id",
+        "groupId",
+        "groupColor",
+        "name",
+        "shortName",
+        "nameOrig",
+        "fullname",
+        "myid",
+        "mapApp",
+        "archive",
+        "goPrefixRouteName",
+        "goShowSchedule",
+        "outdated",
+        "distance",
+        "latitude",
+        "longitude",
+        "timezone",
+        "serviceTime",
+        "serviceTimeShort",
+      ];
+
       for (const possibleKey of possibleKeys) {
         if (!(possibleKey in route)) {
           route[possibleKey] = null;
         }
       }
-      
-      allRoutes.push(new Route(
-        route["id"],
-        route["groupId"],
-        route["groupColor"],
-        route["name"],
-        route["shortName"],
-        route["nameOrig"],
-        route["fullname"],
-        route["myid"],
-        route["mapApp"],
-        route["archive"],
-        route["goPrefixRouteName"],
-        route["goShowSchedule"],
-        route["outdated"],
-        route["distance"],
-        route["latitude"],
-        route["longitude"],
-        route["timezone"],
-        route["serviceTime"],
-        route["serviceTimeShort"],
-        parseInt(route["userId"]),
-        this
-      ));
+
+      allRoutes.push(
+        new Route(
+          route["id"],
+          route["groupId"],
+          route["groupColor"],
+          route["name"],
+          route["shortName"],
+          route["nameOrig"],
+          route["fullname"],
+          route["myid"],
+          route["mapApp"],
+          route["archive"],
+          route["goPrefixRouteName"],
+          route["goShowSchedule"],
+          route["outdated"],
+          route["distance"],
+          route["latitude"],
+          route["longitude"],
+          route["timezone"],
+          route["serviceTime"],
+          route["serviceTimeShort"],
+          parseInt(route["userId"]),
+          this
+        )
+      );
     }
-    
+
     return allRoutes;
   }
-  
+
   async getStops(
     appVersion: number = 2,
     sA: number = 1,
@@ -243,35 +302,31 @@ export class TransportationSystem {
       1: Returns all stops for the given system
       >=2: Returns unrelated stops as well
     */
-    
+
     // Initialize & Send Request
     const url = `${BASE_URL}/mapGetData.php?getStops=${appVersion}`;
     const body = {
-      "s0": this.id.toString(),
-      "sA": sA
+      s0: this.id.toString(),
+      sA: sA,
     };
     const stops = await sendApiRequest(url, body);
-    
-    // Return Raw Response
+
     if (raw) {
       return stops;
     }
-    
-    // Handle Request Error
+
     if (stops === null) {
       return [];
     }
-    
-    // Handle Empty Routes
+
     if (stops["routes"].length === 0) {
       stops["routes"] = {};
     }
-    
-    // Handle Empty Stops
+
     if (stops["stops"].length === 0) {
       stops["stops"] = {};
     }
-    
+
     // Create Route & Stops Dictionary
     // {routeid -> [stopid, stopid]}
     const routesAndStops: Record<string, any[]> = {};
@@ -284,7 +339,7 @@ export class TransportationSystem {
         routesAndStops[routeId].push(stop[1]);
       }
     }
-    
+
     // Create Each Stop Object
     const allStops: Stop[] = [];
     for (const [id, stop] of Object.entries<any>(stops["stops"])) {
@@ -296,32 +351,34 @@ export class TransportationSystem {
           continue;
         }
         routesAndPositions[routeId] = routesAndStops[routeId]
-          .map((x, i) => x === stop["id"] ? i : -1)
-          .filter(i => i !== -1);
+          .map((x, i) => (x === stop["id"] ? i : -1))
+          .filter((i) => i !== -1);
       }
-      
+
       const keys = ["userId", "radius"];
       for (const key of keys) {
         if (!(key in stop)) {
           stop[key] = null;
         }
       }
-      
-      allStops.push(new Stop(
-        stop["id"],
-        routesAndPositions,
-        stop["userId"] === null ? null : parseInt(stop["userId"]),
-        stop["name"],
-        stop["latitude"],
-        stop["longitude"],
-        stop["radius"],
-        this
-      ));
+
+      allStops.push(
+        new Stop(
+          stop["id"],
+          routesAndPositions,
+          stop["userId"] === null ? null : parseInt(stop["userId"]),
+          stop["name"],
+          stop["latitude"],
+          stop["longitude"],
+          stop["radius"],
+          this
+        )
+      );
     }
-    
+
     return allStops;
   }
-  
+
   async getSystemAlerts(
     appVersion: number = 1,
     amount: number = 1,
@@ -335,63 +392,62 @@ export class TransportationSystem {
       0: Error
       >=1: Valid
     */
-    
+
     // Initialize & Send Request
     const url = `${BASE_URL}/goServices.php?getAlertMessages=${appVersion}`;
     const body = {
-      "systemSelected0": this.id.toString(),
-      "amount": amount,
-      "routesAmount": routesAmount
+      systemSelected0: this.id.toString(),
+      amount: amount,
+      routesAmount: routesAmount,
     };
     const errorMsgs = await sendApiRequest(url, body);
-    
-    // Handle Request Error
+
     if (errorMsgs === null) {
       return [];
     }
-    
+
     // Create SystemAlert Objects
     const allAlerts: SystemAlert[] = [];
     for (const errorMsg of errorMsgs["msgs"]) {
-      allAlerts.push(new SystemAlert(
-        errorMsg["id"],
-        errorMsg["userId"],
-        this,
-        errorMsg["routeId"],
-        errorMsg["name"],
-        errorMsg["html"],
-        errorMsg["archive"],
-        errorMsg["important"],
-        errorMsg["created"],
-        errorMsg["from"],
-        errorMsg["to"],
-        errorMsg["asPush"],
-        errorMsg["gtfs"],
-        errorMsg["gtfsAlertCauseId"],
-        errorMsg["gtfsAlertEffectId"],
-        errorMsg["gtfsAlertUrl"],
-        errorMsg["gtfsAlertHeaderText"],
-        errorMsg["gtfsAlertDescriptionText"],
-        errorMsg["routeGroupId"],
-        errorMsg["createdUtc"],
-        errorMsg["authorId"],
-        errorMsg["author"],
-        errorMsg["updated"],
-        errorMsg["updateAuthorId"],
-        errorMsg["updateAuthor"],
-        errorMsg["createdF"],
-        errorMsg["fromF"],
-        errorMsg["fromOk"],
-        errorMsg["toOk"]
-      ));
+      allAlerts.push(
+        new SystemAlert(
+          errorMsg["id"],
+          errorMsg["userId"],
+          this,
+          errorMsg["routeId"],
+          errorMsg["name"],
+          errorMsg["html"],
+          errorMsg["archive"],
+          errorMsg["important"],
+          errorMsg["created"],
+          errorMsg["from"],
+          errorMsg["to"],
+          errorMsg["asPush"],
+          errorMsg["gtfs"],
+          errorMsg["gtfsAlertCauseId"],
+          errorMsg["gtfsAlertEffectId"],
+          errorMsg["gtfsAlertUrl"],
+          errorMsg["gtfsAlertHeaderText"],
+          errorMsg["gtfsAlertDescriptionText"],
+          errorMsg["routeGroupId"],
+          errorMsg["createdUtc"],
+          errorMsg["authorId"],
+          errorMsg["author"],
+          errorMsg["updated"],
+          errorMsg["updateAuthorId"],
+          errorMsg["updateAuthor"],
+          errorMsg["createdF"],
+          errorMsg["fromF"],
+          errorMsg["fromOk"],
+          errorMsg["toOk"]
+        )
+      );
     }
-    
+
     return allAlerts;
   }
-  
-  async getVehicles(
-    appVersion: number = 2
-  ): Promise<Vehicle[]> {
+
+  async getVehicles(appVersion: number = 2): Promise<Vehicle[]> {
     /*
     Gets all currently running buses.
     =========
@@ -400,61 +456,78 @@ export class TransportationSystem {
       0: Error
       >=1: Valid
     */
-    
+
     // Initialize & Send Request
     const url = `${BASE_URL}/mapGetData.php?getBuses=${appVersion}`;
     const body = {
-      "s0": this.id.toString(),
-      "sA": 1
+      s0: this.id.toString(),
+      sA: 1,
     };
     const vehicles = await sendApiRequest(url, body);
-    
-    // Handle Request Error
+
     if (vehicles === null) {
       return [];
     }
-    
+
     const allVehicles: Vehicle[] = [];
     for (const [vehicleId, vehicle] of Object.entries<any>(vehicles["buses"])) {
-      if (vehicleId === '-1') {
+      if (vehicleId === "-1") {
         continue;
       }
-      
+
       const vehicleData = vehicle[0];
-      
-      for (const key of ["busId", "busName", "busType", "calculatedCourse", "routeId", "route", "color", "created", "latitude", "longitude", "speed", "paxLoad100", "outOfService", "more", "tripId"]) {
+
+      for (const key of [
+        "busId",
+        "busName",
+        "busType",
+        "calculatedCourse",
+        "routeId",
+        "route",
+        "color",
+        "created",
+        "latitude",
+        "longitude",
+        "speed",
+        "paxLoad100",
+        "outOfService",
+        "more",
+        "tripId",
+      ]) {
         if (!(key in vehicleData)) {
           vehicleData[key] = null;
         }
       }
-      
-      allVehicles.push(new Vehicle(
-        vehicleData["busId"],
-        vehicleData["busName"],
-        vehicleData["busType"],
-        this,
-        vehicleData["calculatedCourse"],
-        vehicleData["routeId"],
-        vehicleData["route"],
-        vehicleData["color"],
-        vehicleData["created"],
-        vehicleData["latitude"],
-        vehicleData["longitude"],
-        vehicleData["speed"],
-        vehicleData["paxLoad100"],
-        vehicleData["outOfService"],
-        vehicleData["more"],
-        vehicleData["tripId"]
-      ));
+
+      allVehicles.push(
+        new Vehicle(
+          vehicleData["busId"],
+          vehicleData["busName"],
+          vehicleData["busType"],
+          this,
+          vehicleData["calculatedCourse"],
+          vehicleData["routeId"],
+          vehicleData["route"],
+          vehicleData["color"],
+          vehicleData["created"],
+          vehicleData["latitude"],
+          vehicleData["longitude"],
+          vehicleData["speed"],
+          vehicleData["paxLoad100"],
+          vehicleData["outOfService"],
+          vehicleData["more"],
+          vehicleData["tripId"]
+        )
+      );
     }
-    
+
     return allVehicles;
   }
 }
 
 export async function getSystems(
   appVersion: number = 2,
-  sortMode: number = 1,
+  sortMode: number = 1
 ): Promise<TransportationSystem[]> {
   /*
   Gets all systems. Returns a list of TransportationSystem.
@@ -464,75 +537,91 @@ export async function getSystems(
     <2: Error
     2: Valid
   */
-  
+
   // Initialize & Send Request
   const url = `${BASE_URL}/mapGetData.php?getSystems=${appVersion}&sortMode=${sortMode}&credentials=1`;
   const systems = await sendApiRequest(url, null);
-  
-  // Handle Request Error
+
   if (systems === null) {
     return [];
   }
-  
+
   const allSystems: TransportationSystem[] = [];
   for (const system of systems["all"]) {
     // Convert Empty Strings To None Objects
     for (const parameter in system) {
-      if (system[parameter] === '') {
+      if (system[parameter] === "") {
         system[parameter] = null;
       }
     }
-    
+
     // Check all keys exist
-    for (const key of ["goAgencyName", "email", "goTestMode", "name2", "homepage", "logo", "goRoutePlannerEnabled", "goColor", "goSupportEmail", "goSharedCode", "goAuthenticationType"]) {
+    for (const key of [
+      "goAgencyName",
+      "email",
+      "goTestMode",
+      "name2",
+      "homepage",
+      "logo",
+      "goRoutePlannerEnabled",
+      "goColor",
+      "goSupportEmail",
+      "goSharedCode",
+      "goAuthenticationType",
+    ]) {
       if (!(key in system)) {
         system[key] = null;
       }
     }
-    
-    allSystems.push(new TransportationSystem(
-      parseInt(system["id"]),
-      system["fullname"],
-      system["username"],
-      system["goAgencyName"],
-      system["email"],
-      system["goTestMode"] ? Boolean(parseInt(system["goTestMode"])) : null,
-      system["name2"] ? Boolean(parseInt(system["name2"])) : null,
-      system["homepage"],
-      system["logo"] ? Boolean(parseInt(system["logo"])) : null,
-      system["goRoutePlannerEnabled"] ? Boolean(parseInt(system["goRoutePlannerEnabled"])) : null,
-      system["goColor"],
-      system["goSupportEmail"],
-      toIntInclNone(system["goSharedCode"]),
-      system["goAuthenticationType"] ? Boolean(parseInt(system["goAuthenticationType"])) : null
-    ));
+
+    allSystems.push(
+      new TransportationSystem(
+        parseInt(system["id"]),
+        system["fullname"],
+        system["username"],
+        system["goAgencyName"],
+        system["email"],
+        system["goTestMode"] ? Boolean(parseInt(system["goTestMode"])) : null,
+        system["name2"] ? Boolean(parseInt(system["name2"])) : null,
+        system["homepage"],
+        system["logo"] ? Boolean(parseInt(system["logo"])) : null,
+        system["goRoutePlannerEnabled"]
+          ? Boolean(parseInt(system["goRoutePlannerEnabled"]))
+          : null,
+        system["goColor"],
+        system["goSupportEmail"],
+        toIntInclNone(system["goSharedCode"]),
+        system["goAuthenticationType"]
+          ? Boolean(parseInt(system["goAuthenticationType"]))
+          : null
+      )
+    );
   }
-  
+
   return allSystems;
 }
 
 export async function getSystemFromID(
   id: number,
   appVersion: number = 2,
-  sortMode: number = 1,
+  sortMode: number = 1
 ): Promise<TransportationSystem | null> {
   // Check Input Type
-  if (typeof id !== 'number') {
+  if (typeof id !== "number") {
     throw new Error("`id` must be of type number");
   }
-  
-  // Check App Version Type
-  if (typeof appVersion !== 'number') {
+
+  if (typeof appVersion !== "number") {
     throw new Error("`appVersion` must be of type number");
   }
-  
+
   // Check sort Mode Type
-  if (typeof sortMode !== 'number') {
+  if (typeof sortMode !== "number") {
     throw new Error("`sortMode` must be of type number");
   }
-  
+
   const systems = await getSystems(appVersion, sortMode);
-  
+
   for (const system of systems) {
     if (system.id === id) {
       return system;
@@ -541,12 +630,12 @@ export async function getSystemFromID(
   return null;
 }
 
-export function printAllSystemsMd(
-  includeHtmlBreaks: boolean = true
-): void {
-  getSystems().then(systems => {
+export function printAllSystemsMd(includeHtmlBreaks: boolean = true): void {
+  getSystems().then((systems) => {
     for (const system of systems) {
-      console.log(`- ${system.name} (#${system.id})${includeHtmlBreaks ? '<br/>' : ''}`);
+      console.log(
+        `- ${system.name} (#${system.id})${includeHtmlBreaks ? "<br/>" : ""}`
+      );
     }
   });
 }
@@ -575,7 +664,7 @@ export class Route {
   serviceTimeShort: string | null;
   systemId: number | null;
   system: TransportationSystem | null;
-  
+
   constructor(
     id: number,
     groupId: number | null = null,
@@ -597,7 +686,7 @@ export class Route {
     serviceTime: string | null = null,
     serviceTimeShort: string | null = null,
     systemId: number | null = null,
-    system: TransportationSystem | null = null,
+    system: TransportationSystem | null = null
   ) {
     this.id = id;
     this.groupId = groupId;
@@ -621,7 +710,7 @@ export class Route {
     this.systemId = systemId;
     this.system = system;
   }
-  
+
   async getStops(): Promise<Stop[]> {
     /*
     Gets the list of stops for this route and stores it as an argument
@@ -629,20 +718,26 @@ export class Route {
     if (!this.system) {
       return [];
     }
-    
+
     const stopsForRoute: Stop[] = [];
     const allStops = await this.system.getStops();
-    
+
     for (const stop of allStops) {
       if (
-        (this.myid && Object.keys(stop.routesAndPositions).includes(this.myid.toString())) ||
+        (this.myid &&
+          Object.keys(stop.routesAndPositions).includes(
+            this.myid.toString()
+          )) ||
         Object.keys(stop.routesAndPositions).includes(this.id.toString()) ||
-        (this.groupId && Object.keys(stop.routesAndPositions).includes(this.groupId.toString()))
+        (this.groupId &&
+          Object.keys(stop.routesAndPositions).includes(
+            this.groupId.toString()
+          ))
       ) {
         stopsForRoute.push(stop);
       }
     }
-    
+
     return stopsForRoute;
   }
 }
@@ -658,7 +753,7 @@ export class Stop {
   longitude: number | null;
   radius: number | null;
   system: TransportationSystem | null;
-  
+
   constructor(
     id: string,
     routesAndPositions: Record<string, number[]> = {},
@@ -667,7 +762,7 @@ export class Stop {
     latitude: number | null = null,
     longitude: number | null = null,
     radius: number | null = null,
-    system: TransportationSystem | null = null,
+    system: TransportationSystem | null = null
   ) {
     this.id = id;
     this.routesAndPositions = routesAndPositions;
@@ -712,7 +807,7 @@ export class SystemAlert {
   fromF: string | null;
   fromOk: boolean | null;
   toOk: boolean | null;
-  
+
   constructor(
     id: number,
     systemId: number | null = null,
@@ -742,7 +837,7 @@ export class SystemAlert {
     createdF: string | null = null,
     fromF: string | null = null,
     fromOk: boolean | null = null,
-    toOk: boolean | null = null,
+    toOk: boolean | null = null
   ) {
     this.id = id;
     this.systemId = systemId;
@@ -795,7 +890,7 @@ export class Vehicle {
   outOfService: boolean | null;
   more: string | null;
   tripId: string | null;
-  
+
   constructor(
     id: string | null = null,
     name: string | null = null,
@@ -812,7 +907,7 @@ export class Vehicle {
     paxLoad: number | null = null,
     outOfService: boolean | null = null,
     more: string | null = null,
-    tripId: string | null = null,
+    tripId: string | null = null
   ) {
     this.id = id;
     this.name = name;
@@ -823,7 +918,7 @@ export class Vehicle {
     this.routeName = routeName;
     this.color = color;
     this.created = created;
-    this.latitude = latitude; 
+    this.latitude = latitude;
     this.longitude = longitude;
     this.speed = speed;
     this.paxLoad = paxLoad;
@@ -839,47 +934,37 @@ export class Vehicle {
 // Launch WebSocket
 export function launchWS(userId: number): WebSocket {
   const uri = "wss://passio3.com/";
-  
+
   const ws = new WebSocket(uri);
-  
-  ws.on('open', () => {
+
+  ws.on("open", () => {
     subscribeWS(ws, userId);
   });
-  
-  ws.on('error', (error) => {
+
+  ws.on("error", (error) => {
     handleWsError(ws, error);
   });
-  
-  ws.on('close', (code, reason) => {
+
+  ws.on("close", (code, reason) => {
     handleWsClose(ws, code, reason);
   });
-  
+
   return ws;
 }
 
 function handleWsError(ws: WebSocket, error: Error): void {
-  console.error('WebSocket error:', error);
+  console.error("WebSocket error:", error);
 }
 
 function handleWsClose(ws: WebSocket, code: number, reason: Buffer): void {
   ws.close();
 }
 
-function subscribeWS(
-  ws: WebSocket,
-  userId: number
-): void {
+function subscribeWS(ws: WebSocket, userId: number): void {
   const subscriptionMsg = {
-    "subscribe": "location",
-    "userId": [userId],
-    "field": [
-      "busId",
-      "latitude",
-      "longitude",
-      "course",
-      "paxLoad",
-      "more"
-    ]
+    subscribe: "location",
+    userId: [userId],
+    field: ["busId", "latitude", "longitude", "course", "paxLoad", "more"],
   };
   ws.send(JSON.stringify(subscriptionMsg));
 }

@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/uga_buses.ts",
+    "bus-location": "ts-node src/get_bus_location.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

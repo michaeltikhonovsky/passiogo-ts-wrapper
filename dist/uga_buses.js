@@ -64,7 +64,7 @@ async function main() {
         const vehicles = await uga.getVehicles();
         console.log("\nActive Vehicles:");
         for (const vehicle of vehicles) {
-            console.log(`- ${vehicle.name} on route: ${vehicle.routeName}`);
+            console.log(`- ${vehicle.name} on route: ${vehicle.routeName}, location: (${vehicle.latitude}, ${vehicle.longitude})`);
         }
     }
     catch (error) {
